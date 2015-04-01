@@ -13,4 +13,7 @@ $create_local_repo = $env_create_local_repo ? {
       undef			=> 'true',
       default       => $env_create_local_repo
 }
-$bahmni_yum_repo_url = 'http://172.18.2.14/localrepo'
+$bahmni_yum_repo_url = $go_bahmni_yum_repo_url ? {
+      undef			=> 'http://172.18.2.14/localrepo',
+      default       => $go_bahmni_yum_repo_url
+}
