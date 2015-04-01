@@ -14,6 +14,7 @@ node default {
  	include java
 	include mysql
 	include mysqlserver
+	include python_setup_tools
     if ($bahmni_openerp_required == "true") or ($bahmni_openelis_required == "true") {
 	    include postgresql
     }

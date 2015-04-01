@@ -5,6 +5,7 @@ class client_side_logging() {
     command => "easy_install flask",
     path => "${os_path}",
     cwd => "${temp_dir}",
+    require => Package["python-setuptools"]
   }
 
   file { "${httpd_log_directory}/client-side-logs":

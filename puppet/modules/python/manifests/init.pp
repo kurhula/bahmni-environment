@@ -23,7 +23,6 @@ class python {
     require => Package["epel-release"]
  	}
 
-  package { "python-setuptools" : ensure => "installed" }
   package { "python-psycopg2" : ensure => installed, require => Package["pgdg-centos92-9.2-6.noarch"] }
   package { "python-lxml" : ensure => installed, require => Package["python-psycopg2"] }
   package { "PyXML" : ensure => installed, require => Package["python-lxml"] }
