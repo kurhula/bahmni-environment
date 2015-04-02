@@ -1,0 +1,51 @@
+    <pipeline name="provision">
+      <params>
+        <param name="branch">1884</param>
+      </params>
+      <environmentvariables>
+        <variable name="FACTER_bahmni_user_name">
+          <value>bahmni</value>
+        </variable>
+        <variable name="FACTER_implementation_name">
+          <value>jss</value>
+        </variable>
+        <variable name="FACTER_deploy_bahmni_openerp">
+          <value>true</value>
+        </variable>
+        <variable name="FACTER_deploy_bahmni_openelis">
+          <value>true</value>
+        </variable>
+        <variable name="FACTER_go_bahmni_yum_repo_url">
+          <value />
+        </variable>
+      </environmentvariables>
+      <materials>
+        <git url="https://github.com/Bhamni/bahmni-environment.git" branch="#{branch}" dest="bahmni-environment" autoUpdate="false" />
+      </materials>
+      <stage name="mainStage">
+        <approval type="manual" />
+        <jobs>
+          <job name="defaultJob">
+            <environmentvariables>
+              <variable name="FACTER_implementation_name">
+                <value>jss</value>
+              </variable>
+            </environmentvariables>
+            <tasks>
+              <exec command="sh" workingdir="bahmni-environment">
+                <arg>scripts/prepare-for-provision.sh</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="sh" workingdir="bahmni-environment">
+                <arg>scripts/run-puppet-manifest.sh</arg>
+                <arg>provision</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <resources>
+              <resource>PROVISION</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
